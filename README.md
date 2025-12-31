@@ -1,112 +1,113 @@
-# Stellar CLI (stellar-cli)
+# Stellar Pi Coin SDK
 
-[![Apache 2.0 licensed](https://img.shields.io/badge/license-apache%202.0-blue.svg)](LICENSE) [![Crates.io Version](https://img.shields.io/crates/v/stellar-cli?label=version&color=04ac5b)](https://crates.io/crates/stellar-cli) [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/stellar/stellar-cli)
+**Ultimate Hyper-Tech SDK for Pi Coin Stablecoin on Stellar Blockchain**
 
-This repo is home to the Stellar CLI, the command-line multi-tool for running and deploying Stellar contracts on the Stellar network.
+The Stellar Pi Coin SDK is a cutting-edge toolkit for deploying and managing Pi Coin – a stablecoin with fixed value 1 PI = $314,159 – on the Stellar network using Soroban smart contracts. Inspired by Pi Network, it features AI-verified origins, quantum-resistant cryptography, Pi-math integrated hashing, and real-time ecosystem simulations. Rejecting external sources, Pi Coin powers secure, stable transactions within a Pi-inspired framework.
+
+**Key Features**:
+- **Soroban Contracts**: On-chain Pi Coin minting, verification, transactions, and ecosystem tools.
+- **Stablecoin Mechanics**: Fixed-value stablecoin with 100B PI supply cap, AI-modulated adjustments.
+- **Hyper-Tech Security**: Quantum RSA crypto, anomaly detection, Pi-based hashing.
+- **CLI Tools**: Python-based commands for off-chain interactions, examples, and config management.
+- **Ecosystem Focus**: Merchant pricing, service wages, P2P trades with real-time analytics.
+
+This SDK is for real Stellar deployment – test on testnet, ensure regulatory compliance.
 
 ## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-- [Documentation](#documentation)
-- [Cookbook](#cookbook)
-- [Install](#install)
-- [Autocomplete](#autocomplete)
-- [Latest Release](#latest-release)
-- [Upcoming Features](#upcoming-features)
-- [To Contribute](#to-contribute)
-- [Additional Developer Resources](#additional-developer-resources)
+## Overview
+Pi Coin is a stablecoin pegged to $314,159 per PI, built for Stellar's Soroban environment. It enforces ecosystem-only usage (mining, rewards, P2P) with hyper-tech verifications. Contracts handle on-chain logic, while CLI tools provide user interfaces.
 
-## Documentation
+## Features
+- **Pi Coin Contract**: Mint, transfer, supply management with quantum signatures.
+- **Verification Contract**: AI-pattern recognition, quantum hashing, anomaly detection.
+- **Transaction Contract**: Consensus simulation, AI routing, secured ledgers.
+- **Ecosystem Contract**: Oracle simulations, merchant/service integrations, analytics.
+- **CLI Tools**: Pi math, examples, config management with AI adjustments.
+- **Security**: Post-quantum crypto, Pi-math entropy, encrypted configs.
 
-For installation options see below, for usage instructions [see the full help docs](FULL_HELP_DOCS.md).
+## Installation
+### Prerequisites
+- Rust 1.70+ for Soroban contracts.
+- Soroban CLI: `cargo install soroban-cli`.
+- Python 3.8+ for CLI tools.
+- Stellar account for deployment.
 
-## Cookbook
+### Setup
+1. **Clone Repo**:
+   ```bash
+   git clone https://github.com/KOSASIH/stellar-pi-coin-sdk.git
+   cd stellar-pi-coin-sdk
+   ```
 
-To understand how to get the most of the Stellar CLI, see the [Stellar CLI Cookbook](https://github.com/stellar/stellar-cli/tree/main/cookbook) for recipes and a collection of resources to teach you how to use the CLI. Examples of recipes included in the CLI cookbook include: send payments, manage contract lifecycle, extend contract instance/storage/wasm, and more.
+2. **Build Contracts**:
+   ```bash
+   cd contracts/pi_coin
+   cargo build --release
+   # Repeat for other contracts
+   ```
 
-## Install
+3. **Install CLI Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Install with the install script (macOS, Linux):
+4. **Deploy to Stellar Testnet**:
+   - Use Soroban CLI: `soroban contract deploy --wasm contracts/pi_coin/target/wasm32-unknown-unknown/release/pi_coin.wasm --network testnet --source <your-account>`
+   - Note contract IDs for cross-calls.
 
-```sh
-curl -fsSL https://github.com/stellar/stellar-cli/raw/main/install.sh | sh
-```
-
-For installation options, run the script with `--help`:
-
-```sh
-curl -fsSL https://github.com/stellar/stellar-cli/raw/main/install.sh | sh -s -- --help
-```
-
-Install with Homebrew (macOS, Linux):
-
-```sh
-brew install stellar-cli
-```
-
-Install the latest version from source:
-
-```sh
-cargo install --locked stellar-cli
-```
-
-Install without features that depend on additional libraries:
-
-```sh
-cargo install --locked stellar-cli --no-default-features
-```
-
-Install or run the unreleased main branch with nix:
-
-```console
-$ nix run 'github:stellar/stellar-cli' -- --help
-or install
-$ nix profile install github:stellar/stellar-cli
-```
-
-For additional information on how to install, see instructions here on the [Developer Docs](https://developers.stellar.org/docs/build/smart-contracts/getting-started/setup#install).
-
-Use GitHub Action:
-
-```yaml
-uses: stellar/stellar-cli@v23.0.1
-```
-
-## Autocomplete
-
-The Stellar CLI supports some autocompletion. To set up, run the following commands:
-
-```sh
-stellar completion --shell <SHELL>
-```
-
-Possible SHELL values are `bash`, `elvish`, `fish`, `powershell`, `zsh`, etc.
-
-To enable autocomplete in the current bash shell, run:
-
+## Quick Start
+### Deploy Pi Coin Contract
 ```bash
-source <(stellar completion --shell bash)
+soroban contract deploy --wasm contracts/pi_coin/target/wasm32-unknown-unknown/release/pi_coin.wasm --network testnet --source <your-account>
+# Init: soroban contract invoke --id <contract-id> --method init --arg <admin-address>
 ```
 
-To enable autocomplete permanently, run:
-
+### Mint Pi Coin via CLI
 ```bash
-echo "source <(stellar completion --shell bash)" >> ~/.bashrc
+python cli/pi_coin_cli.py mint --amount 100 --source mining
 ```
 
-## Latest Release
+### Run Example
+```bash
+python cli/examples_cli.py merchant-example --product laptop --base-price 0.001
+```
 
-For the latest release, see [releases](https://github.com/stellar/stellar-cli/releases).
+## Project Structure
+```
+stellar-pi-coin-sdk/
+├── contracts/                    # Soroban Rust contracts
+│   ├── pi_coin/                  # Core stablecoin
+│   ├── verification/             # Origin checks
+│   ├── transaction/              # Transfers
+│   └── ecosystem/                # Integrations
+├── cli/                          # Python CLI tools
+│   ├── pi_coin_cli.py            # Main CLI
+│   ├── pi_math_cli.py            # Math utilities
+│   ├── examples_cli.py           # Simulations
+│   └── config_cli.py             # Config manager
+├── docs/                         # Documentation
+├── requirements.txt              # Python deps
+├── Cargo.toml                    # Rust workspace
+└── README.md                     # This file
+```
 
-## Upcoming Features
+## Usage
+- **Contracts**: Deploy and invoke via Soroban CLI for on-chain operations.
+- **CLI**: Use for off-chain tools, simulations, and Stellar interactions.
+- **Examples**: See `cli/examples_cli.py` for scenarios.
+- **API**: Full refs in `docs/`.
 
-For upcoming features, please see the [project board](https://github.com/orgs/stellar/projects/50).
+## Contributing
+Hyper-tech contributions welcome! Add AI/ML, quantum features. Submit PRs with tests.
 
-## To Contribute
-
-Find issues to contribute to [here](https://github.com/stellar/stellar-cli/contribute) and review [CONTRIBUTING.md](/CONTRIBUTING.md).
-
-## Additional Developer Resources
-
-- Developer Docs CLI Examples: https://developers.stellar.org/docs/smart-contracts/guides/cli
-- Video Tutorial on `network container`, `keys`, and `contract init`: https://developers.stellar.org/meetings/2024/06/27
-- Video Tutorial on `alias` and `snapshot`: https://developers.stellar.org/meetings/2024/09/12
+## License
+MIT License. See LICENSE.
